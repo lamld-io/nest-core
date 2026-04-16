@@ -72,6 +72,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/platform-health/tsconfig.lib.json"
       }
+    },
+    "platform-auth": {
+      "type": "library",
+      "root": "libs/platform-auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/platform-auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/platform-auth/tsconfig.lib.json"
+      }
     }
   }
 }

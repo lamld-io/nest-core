@@ -11,9 +11,12 @@ import { ApolloDriver, type ApolloDriverConfig } from "@nestjs/apollo"
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         path: configService.getOrThrow<string>("gateway.graphqlPath"),
-        graphiql: configService.get<boolean>("gateway.graphqlIdeEnabled") ?? true,
+        graphiql:
+          process.env.NODE_ENV === "development" &&
+          configService.get<boolean>("gateway.graphqlIdeEnabled") === true,
         autoSchemaFile: configService.getOrThrow<string>("gateway.graphqlSchemaFile"),
         sortSchema: true,
+        context: ({ req }: { req: { user?: unknown } }) => ({ req }),
       }),
     }),
   ],

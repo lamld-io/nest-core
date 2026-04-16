@@ -16,13 +16,14 @@
     "typecheck": "npm run build",
     "lint": "node --test test/architecture-baseline-structure.test.mjs",
     "lint:fix": "npm run lint",
-    "test": "node --test test/*.test.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
     "test:architecture": "node --test test/architecture-baseline-structure.test.mjs",
     "db:validate": "node -e \"console.log('db:validate placeholder - no schema configured in Platform Skeleton')\"",
     "start:gateway": "node dist/apps/gateway/src/main.js",
     "start:auth-service": "node dist/apps/auth-service/src/main.js",
     "start:user-service": "node dist/apps/user-service/src/main.js",
-    "test:platform-skeleton": "node --test test/platform-skeleton-smoke.test.mjs"
+    "test:platform-skeleton": "node --test test/platform-skeleton-smoke.test.mjs",
+    "test:identity-tenant": "node --test test/identity-tenant-foundation-smoke.test.mjs"
   },
   "dependencies": {
     "@apollo/server": "^5.5.0",
@@ -31,15 +32,27 @@
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.1.19",
     "@nestjs/graphql": "^13.2.5",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.1.19",
     "@nestjs/terminus": "^11.1.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.4",
     "graphql": "^16.13.2",
     "joi": "^18.1.2",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
+    "@nestjs/testing": "^11.1.19",
     "@types/node": "^24.8.1",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/passport-local": "^1.0.38",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.2.2",
     "typescript": "^5.9.3"
   }
 }

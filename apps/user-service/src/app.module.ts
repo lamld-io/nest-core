@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common"
 import { UserHealthModule } from "./health/health.module.js"
+import { MembershipModule } from "./membership/membership.module.js"
 import {
   platformAppConfig,
   PlatformConfigModule,
@@ -12,6 +13,7 @@ import { PlatformObservabilityModule } from "../../../libs/platform-observabilit
     PlatformConfigModule.register(platformAppConfig.userService),
     PlatformLoggerModule,
     PlatformObservabilityModule,
+    MembershipModule,
     UserHealthModule,
   ],
 })
