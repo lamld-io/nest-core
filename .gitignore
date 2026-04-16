@@ -25,3 +25,5 @@ lerna-debug.log*
 
 # Local Claude Code bundle
 everything-claude-code/
+.agent/
+.opencode/
