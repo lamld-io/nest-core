@@ -1,0 +1,23 @@
+{
+  "name": "nest-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10",
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "node ./.opencode/node_modules/typescript/bin/tsc -p tsconfig.build.json",
+    "typecheck": "npm run build",
+    "lint": "node --test test/architecture-baseline-structure.test.mjs",
+    "lint:fix": "npm run lint",
+    "test": "node --test",
+    "test:architecture": "node --test test/architecture-baseline-structure.test.mjs",
+    "db:validate": "node -e \"console.log('db:validate placeholder - no schema configured in Architecture Baseline')\""
+  }
+}
