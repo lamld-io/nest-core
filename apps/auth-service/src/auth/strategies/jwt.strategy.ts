@@ -1,0 +1,27 @@
+import { Injectable, UnauthorizedException } from "@nestjs/common"
+import { ConfigService } from "@nestjs/config"
+import { PassportStrategy } from "@nestjs/passport"
+import { ExtractJwt, Strategy } from "passport-jwt"
+import type { AuthRuntimeConfig } from "../../../../../libs/platform-config/src/app-config.js"
+import type { AuthTokenClaims } from "../../../../../libs/platform-auth/src/index.js"
+
+@Injectable()
+export class JwtStrategy extends PassportStrategy(Strategy) {
+  constructor(configService: ConfigService) {
+    const authConfig = configService.getOrThrow<AuthRuntimeConfig>("auth-service.auth")
+
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: authConfig.jwtSecret,
+    })
+  }
+
+  validate(payload: AuthTokenClaims) {
+    if (payload.tokenUse !== "access") {
+      throw new UnauthorizedException("Access token required")
+    }
+
+    return payload
+  }
+}

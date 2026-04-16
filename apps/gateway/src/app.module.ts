@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common"
+import { GatewayAuthModule } from "./auth/gateway-auth.module.js"
 import { GatewayGraphqlModule } from "./graphql/graphql.module.js"
 import { GatewayHealthModule } from "./health/health.module.js"
 import {
@@ -13,6 +14,7 @@ import { PlatformObservabilityModule } from "../../../libs/platform-observabilit
     PlatformConfigModule.register(platformAppConfig.gateway),
     PlatformLoggerModule,
     PlatformObservabilityModule,
+    GatewayAuthModule,
     GatewayGraphqlModule,
     GatewayHealthModule,
   ],
