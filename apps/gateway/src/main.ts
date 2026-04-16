@@ -1,7 +1,16 @@
-export const gatewayArchitectureBaseline = {
-  app: "gateway",
-  interface: "graphql",
-  runtime: "nestjs",
-  role: "client-entrypoint",
-  status: "architecture-baseline",
-} as const
+import "reflect-metadata"
+import { NestFactory } from "@nestjs/core"
+import { AppModule } from "./app.module.js"
+import { createPlatformLogger } from "../../../libs/platform-logger/src/index.js"
+
+async function bootstrap(): Promise<void> {
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  })
+
+  app.useLogger(createPlatformLogger("gateway"))
+  app.enableShutdownHooks()
+  await app.listen(process.env.PORT ? Number(process.env.PORT) : 3000)
+}
+
+void bootstrap()

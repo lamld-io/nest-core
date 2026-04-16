@@ -12,12 +12,34 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "node ./.opencode/node_modules/typescript/bin/tsc -p tsconfig.build.json",
+    "build": "node ./node_modules/typescript/bin/tsc -p tsconfig.build.json",
     "typecheck": "npm run build",
     "lint": "node --test test/architecture-baseline-structure.test.mjs",
     "lint:fix": "npm run lint",
-    "test": "node --test",
+    "test": "node --test test/*.test.mjs",
     "test:architecture": "node --test test/architecture-baseline-structure.test.mjs",
-    "db:validate": "node -e \"console.log('db:validate placeholder - no schema configured in Architecture Baseline')\""
+    "db:validate": "node -e \"console.log('db:validate placeholder - no schema configured in Platform Skeleton')\"",
+    "start:gateway": "node dist/apps/gateway/src/main.js",
+    "start:auth-service": "node dist/apps/auth-service/src/main.js",
+    "start:user-service": "node dist/apps/user-service/src/main.js",
+    "test:platform-skeleton": "node --test test/platform-skeleton-smoke.test.mjs"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.5.0",
+    "@nestjs/apollo": "^13.2.5",
+    "@nestjs/common": "^11.1.19",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.1.19",
+    "@nestjs/graphql": "^13.2.5",
+    "@nestjs/platform-express": "^11.1.19",
+    "@nestjs/terminus": "^11.1.1",
+    "graphql": "^16.13.2",
+    "joi": "^18.1.2",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "typescript": "^5.9.3"
   }
 }

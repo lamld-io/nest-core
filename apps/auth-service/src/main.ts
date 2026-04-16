@@ -1,7 +1,16 @@
-export const authServiceArchitectureBaseline = {
-  app: "auth-service",
-  interface: "internal-http",
-  runtime: "nestjs",
-  role: "identity-and-token-service",
-  status: "architecture-baseline",
-} as const
+import "reflect-metadata"
+import { NestFactory } from "@nestjs/core"
+import { AppModule } from "./app.module.js"
+import { createPlatformLogger } from "../../../libs/platform-logger/src/index.js"
+
+async function bootstrap(): Promise<void> {
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  })
+
+  app.useLogger(createPlatformLogger("auth-service"))
+  app.enableShutdownHooks()
+  await app.listen(process.env.PORT ? Number(process.env.PORT) : 3001)
+}
+
+void bootstrap()

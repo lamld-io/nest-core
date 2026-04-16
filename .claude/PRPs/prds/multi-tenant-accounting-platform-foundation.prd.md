@@ -144,7 +144,7 @@ Lý do: kiến trúc và stack đã được chứng minh rộng rãi cho SaaS b
 | # | Phase | Description | Status | Parallel | Depends | PRP Plan |
 |---|-------|-------------|--------|----------|---------|----------|
 | 1 | Architecture Baseline | Chốt tenant model, auth model, observability model, và ADRs nền tảng | complete | - | - | `.claude/PRPs/reports/architecture-baseline-report.md` |
-| 2 | Platform Skeleton | Dựng gateway, auth service, user service, infra contracts, config, health, và service boundaries | pending | - | 1 | - |
+| 2 | Platform Skeleton | Dựng gateway, auth service, user service, infra contracts, config, health, và service boundaries | complete | - | 1 | `.claude/PRPs/reports/platform-skeleton-report.md` |
 | 3 | Identity & Tenant Foundation | Triển khai tenant-aware authentication, membership, RBAC, và token/session model | pending | with 4 | 2 | - |
 | 4 | Observability & Audit Foundation | Triển khai logging, tracing, metrics, dashboards, audit/security events, và guardrails | pending | with 3 | 2 | - |
 | 5 | Gateway Hardening | Thêm rate limiting, query complexity limits, persisted query strategy, cache strategy, và operational readiness checks | pending | - | 3, 4 | - |
