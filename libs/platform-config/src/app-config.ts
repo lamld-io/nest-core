@@ -14,6 +14,14 @@ export type AuthRuntimeConfig = {
   refreshTokenTtlSeconds: number
 }
 
+export type ObservabilityRuntimeConfig = {
+  serviceName: string
+  metricsPath: string
+  metricsPrefix: string
+  auditEnabled: boolean
+  tracingEnabled: boolean
+}
+
 export const platformAppConfig = {
   gateway: {
     name: "gateway",
@@ -41,6 +49,10 @@ export const sharedEnvironmentValidationSchema = Joi.object({
   AUTH_JWT_SECRET: Joi.string().min(32).required(),
   AUTH_ACCESS_TOKEN_TTL_SECONDS: Joi.number().integer().positive().default(900),
   AUTH_REFRESH_TOKEN_TTL_SECONDS: Joi.number().integer().positive().default(604800),
+  OBS_METRICS_PATH: Joi.string().default("/metrics"),
+  OBS_METRICS_PREFIX: Joi.string().default("nest_core_"),
+  OBS_AUDIT_ENABLED: Joi.boolean().truthy("true").falsy("false").default(true),
+  OBS_TRACING_ENABLED: Joi.boolean().truthy("true").falsy("false").default(true),
 })
 
 export function createPlatformConfigNamespace(definition: PlatformAppConfigDefinition) {
@@ -67,6 +79,17 @@ export function createPlatformConfigNamespace(definition: PlatformAppConfigDefin
         accessTokenTtlSeconds: Number(process.env.AUTH_ACCESS_TOKEN_TTL_SECONDS ?? 900),
         refreshTokenTtlSeconds: Number(process.env.AUTH_REFRESH_TOKEN_TTL_SECONDS ?? 604800),
       } satisfies AuthRuntimeConfig,
+      observability: {
+        serviceName: definition.name,
+        metricsPath: process.env.OBS_METRICS_PATH ?? "/metrics",
+        metricsPrefix: process.env.OBS_METRICS_PREFIX ?? "nest_core_",
+        auditEnabled: process.env.OBS_AUDIT_ENABLED
+          ? process.env.OBS_AUDIT_ENABLED === "true"
+          : true,
+        tracingEnabled: process.env.OBS_TRACING_ENABLED
+          ? process.env.OBS_TRACING_ENABLED === "true"
+          : true,
+      } satisfies ObservabilityRuntimeConfig,
     }
   }
 }

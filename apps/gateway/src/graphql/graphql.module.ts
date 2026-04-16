@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common"
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { GraphQLModule } from "@nestjs/graphql"
 import { ApolloDriver, type ApolloDriverConfig } from "@nestjs/apollo"
+import { createRequestCorrelationContext } from "../../../../libs/platform-observability/src/index.js"
 
 @Module({
   imports: [
@@ -16,7 +17,14 @@ import { ApolloDriver, type ApolloDriverConfig } from "@nestjs/apollo"
           configService.get<boolean>("gateway.graphqlIdeEnabled") === true,
         autoSchemaFile: configService.getOrThrow<string>("gateway.graphqlSchemaFile"),
         sortSchema: true,
-        context: ({ req }: { req: { user?: unknown } }) => ({ req }),
+        context: ({ req }: { req: { headers?: Record<string, unknown>; user?: unknown } }) => ({
+          req,
+          correlation: createRequestCorrelationContext({
+            headers: req.headers,
+            serviceName: "gateway",
+            operationName: "graphql.request",
+          }),
+        }),
       }),
     }),
   ],

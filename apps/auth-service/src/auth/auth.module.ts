@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config"
 import { JwtModule } from "@nestjs/jwt"
 import { PassportModule } from "@nestjs/passport"
 import type { AuthRuntimeConfig } from "../../../../libs/platform-config/src/app-config.js"
+import { PlatformObservabilityModule } from "../../../../libs/platform-observability/src/index.js"
 import { AuthController } from "./auth.controller.js"
 import { AuthRepository } from "./auth.repository.js"
 import { AuthService } from "./auth.service.js"
@@ -15,6 +16,7 @@ import { LocalStrategy } from "./strategies/local.strategy.js"
   imports: [
     ConfigModule,
     PassportModule,
+    PlatformObservabilityModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

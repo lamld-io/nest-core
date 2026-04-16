@@ -4,6 +4,7 @@ import { Test } from "@nestjs/testing"
 import { ConfigService } from "@nestjs/config"
 import { JwtModule, JwtService } from "@nestjs/jwt"
 import { ValidationPipe } from "@nestjs/common"
+import { AuditService } from "../dist/libs/platform-observability/src/index.js"
 
 const authConfig = {
   jwtSecret: "0123456789abcdef0123456789abcdef",
@@ -43,6 +44,10 @@ test("POST /auth/login validates payload and authenticates via repository-backed
       JwtService,
       JwtAuthGuard,
       AuthJwtStrategy,
+      {
+        provide: AuditService,
+        useValue: { record: () => undefined },
+      },
       {
         provide: ConfigService,
         useValue: {
@@ -127,6 +132,10 @@ test("GET /auth/me rejects refresh token claims", async () => {
       JwtAuthGuard,
       AuthJwtStrategy,
       {
+        provide: AuditService,
+        useValue: { record: () => undefined },
+      },
+      {
         provide: ConfigService,
         useValue: {
           getOrThrow: () => authConfig,
@@ -176,7 +185,13 @@ test("GET /membership/:userId rejects access to another user", async () => {
 
   const moduleRef = await Test.createTestingModule({
     controllers: [MembershipController],
-    providers: [MembershipService],
+    providers: [
+      MembershipService,
+      {
+        provide: AuditService,
+        useValue: { record: () => undefined },
+      },
+    ],
   })
     .overrideGuard(MembershipJwtAuthGuard)
     .useValue({
