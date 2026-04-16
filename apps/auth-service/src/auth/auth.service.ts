@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 import { JwtService } from "@nestjs/jwt"
 import type { AuthTokenClaims } from "../../../../libs/platform-auth/src/index.js"
+import { AuditService, auditEventTypes } from "../../../../libs/platform-observability/src/index.js"
 import { AuthRepository } from "./auth.repository.js"
 import type { AuthenticatedUser } from "./auth.types.js"
 import type { TokenResponseDto } from "./dto/token-response.dto.js"
@@ -11,13 +12,20 @@ export class AuthService {
   constructor(
     private readonly authRepository: AuthRepository,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly auditService: AuditService
   ) {}
 
   async validateUser(email: string, password: string): Promise<AuthenticatedUser> {
     const user = await this.authRepository.findByEmail(email)
 
     if (!user || password !== user.passwordHash) {
+      this.auditService.record({
+        type: auditEventTypes.authLoginFailed,
+        service: "auth-service",
+        outcome: "failure",
+        details: { email },
+      })
       throw new UnauthorizedException("Invalid credentials")
     }
 
@@ -62,6 +70,13 @@ export class AuthService {
 
   getProfileFromClaims(claims: AuthTokenClaims): AuthenticatedUser {
     if (claims.tokenUse !== "access") {
+      this.auditService.record({
+        type: auditEventTypes.authAccessTokenRejected,
+        service: "auth-service",
+        outcome: "failure",
+        tenantId: claims.tenantId,
+        userId: claims.sub,
+      })
       throw new UnauthorizedException("Access token required")
     }
 

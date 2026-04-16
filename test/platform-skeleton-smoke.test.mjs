@@ -33,5 +33,7 @@ test("shared platform libs expose scaffold surfaces", () => {
   assert.match(configIndex, /class PlatformConfigModule/)
   assert.match(loggerIndex, /class PlatformLoggerModule/)
   assert.match(observabilityIndex, /class PlatformObservabilityModule/)
+  assert.match(observabilityIndex, /audit-events/)
+  assert.match(loggerIndex, /RequestLoggingInterceptor/)
   assert.match(authIndex, /auth\.decorators/)
 })

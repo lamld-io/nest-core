@@ -1,4 +1,5 @@
 import { Controller, Get, Module } from "@nestjs/common"
+import { AuthMetricsController } from "./metrics.controller.js"
 
 @Controller("health")
 class AuthHealthController {
@@ -20,6 +21,6 @@ class AuthHealthController {
 }
 
 @Module({
-  controllers: [AuthHealthController],
+  controllers: [AuthHealthController, AuthMetricsController],
 })
 export class AuthHealthModule {}

@@ -146,7 +146,7 @@ Lý do: kiến trúc và stack đã được chứng minh rộng rãi cho SaaS b
 | 1 | Architecture Baseline | Chốt tenant model, auth model, observability model, và ADRs nền tảng | complete | - | - | `.claude/PRPs/reports/architecture-baseline-report.md` |
 | 2 | Platform Skeleton | Dựng gateway, auth service, user service, infra contracts, config, health, và service boundaries | complete | - | 1 | `.claude/PRPs/reports/platform-skeleton-report.md` |
 | 3 | Identity & Tenant Foundation | Triển khai tenant-aware authentication, membership, RBAC, và token/session model | complete | with 4 | 2 | `.claude/PRPs/reports/identity-tenant-foundation-report.md` |
-| 4 | Observability & Audit Foundation | Triển khai logging, tracing, metrics, dashboards, audit/security events, và guardrails | pending | with 3 | 2 | - |
+| 4 | Observability & Audit Foundation | Triển khai logging, tracing, metrics, dashboards, audit/security events, và guardrails | complete | with 3 | 2 | `.claude/PRPs/reports/observability-audit-foundation-report.md` |
 | 5 | Gateway Hardening | Thêm rate limiting, query complexity limits, persisted query strategy, cache strategy, và operational readiness checks | pending | - | 3, 4 | - |
 | 6 | Accounting Domain Readiness | Chốt domain boundaries cho ledger/invoice/expense/reporting và xác nhận service expansion path | pending | - | 5 | - |
 

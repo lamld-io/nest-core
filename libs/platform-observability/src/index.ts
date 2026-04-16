@@ -1,4 +1,6 @@
 import { Module } from "@nestjs/common"
+import { PlatformLoggerModule } from "../../platform-logger/src/index.js"
+import { AuditService } from "./audit.service.js"
 
 export const platformObservabilityModuleName = "platform-observability" as const
 
@@ -39,5 +41,17 @@ export function createPlatformObservabilityOptions(serviceName: string): Platfor
   }
 }
 
-@Module({})
+@Module({
+  imports: [PlatformLoggerModule],
+  providers: [AuditService],
+  exports: [AuditService],
+})
 export class PlatformObservabilityModule {}
+
+export * from "./audit-events.js"
+export * from "./audit.service.js"
+export * from "./instrumentation.js"
+export * from "./metrics.js"
+export * from "./metrics.interceptor.js"
+export * from "./request-context.js"
+export * from "./request-logging.interceptor.js"
