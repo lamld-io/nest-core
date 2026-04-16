@@ -1,3 +1,5 @@
+import { Module } from "@nestjs/common"
+
 export const platformObservabilityModuleName = "platform-observability" as const
 
 export const platformTelemetrySignals = {
@@ -22,3 +24,20 @@ export const platformObservabilityBaseline = {
   traceBackend: "tempo",
   dashboardScope: ["gateway", "auth-service", "user-service"],
 } as const
+
+export type PlatformObservabilityOptions = {
+  serviceName: string
+  enableMetrics: boolean
+  enableTracing: boolean
+}
+
+export function createPlatformObservabilityOptions(serviceName: string): PlatformObservabilityOptions {
+  return {
+    serviceName,
+    enableMetrics: platformTelemetrySignals.metrics,
+    enableTracing: platformTelemetrySignals.traces,
+  }
+}
+
+@Module({})
+export class PlatformObservabilityModule {}

@@ -63,6 +63,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/platform-observability/tsconfig.lib.json"
       }
+    },
+    "platform-health": {
+      "type": "library",
+      "root": "libs/platform-health",
+      "entryFile": "index",
+      "sourceRoot": "libs/platform-health/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/platform-health/tsconfig.lib.json"
+      }
     }
   }
 }

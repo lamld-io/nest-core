@@ -11,8 +11,17 @@ const requiredFiles = [
   "apps/auth-service/src/main.ts",
   "apps/user-service/src/main.ts",
   "libs/platform-config/src/index.ts",
+  "libs/platform-config/src/app-config.ts",
   "libs/platform-logger/src/index.ts",
   "libs/platform-observability/src/index.ts",
+  "libs/platform-health/src/index.ts",
+  "apps/gateway/src/app.module.ts",
+  "apps/gateway/src/graphql/graphql.module.ts",
+  "apps/gateway/src/health/health.module.ts",
+  "apps/auth-service/src/app.module.ts",
+  "apps/auth-service/src/health/health.module.ts",
+  "apps/user-service/src/app.module.ts",
+  "apps/user-service/src/health/health.module.ts",
   "docs/architecture/adr-001-workspace-structure.md",
   "docs/architecture/adr-002-auth-and-tenant-model.md",
   "docs/architecture/adr-003-observability-baseline.md",
@@ -34,6 +43,9 @@ test("workspace manifest defines baseline scripts and workspaces", () => {
   assert.equal(typeof packageJson.scripts.build, "string")
   assert.equal(typeof packageJson.scripts.test, "string")
   assert.equal(typeof packageJson.scripts.lint, "string")
+  assert.equal(typeof packageJson.scripts["start:gateway"], "string")
+  assert.equal(typeof packageJson.scripts["start:auth-service"], "string")
+  assert.equal(typeof packageJson.scripts["start:user-service"], "string")
 })
 
 test("nest workspace includes baseline applications and libraries", () => {
@@ -46,6 +58,7 @@ test("nest workspace includes baseline applications and libraries", () => {
   assert.equal(nestCli.projects["platform-config"].type, "library")
   assert.equal(nestCli.projects["platform-logger"].type, "library")
   assert.equal(nestCli.projects["platform-observability"].type, "library")
+  assert.equal(nestCli.projects["platform-health"].type, "library")
 })
 
 test("ADRs capture key architecture baseline decisions", () => {

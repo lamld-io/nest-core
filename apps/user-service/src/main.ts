@@ -1,7 +1,16 @@
-export const userServiceArchitectureBaseline = {
-  app: "user-service",
-  interface: "internal-http",
-  runtime: "nestjs",
-  role: "profile-and-membership-service",
-  status: "architecture-baseline",
-} as const
+import "reflect-metadata"
+import { NestFactory } from "@nestjs/core"
+import { AppModule } from "./app.module.js"
+import { createPlatformLogger } from "../../../libs/platform-logger/src/index.js"
+
+async function bootstrap(): Promise<void> {
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  })
+
+  app.useLogger(createPlatformLogger("user-service"))
+  app.enableShutdownHooks()
+  await app.listen(process.env.PORT ? Number(process.env.PORT) : 3002)
+}
+
+void bootstrap()
