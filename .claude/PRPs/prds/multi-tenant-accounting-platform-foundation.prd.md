@@ -148,7 +148,7 @@ Lý do: kiến trúc và stack đã được chứng minh rộng rãi cho SaaS b
 | 3 | Identity & Tenant Foundation | Triển khai tenant-aware authentication, membership, RBAC, và token/session model | complete | with 4 | 2 | `.claude/PRPs/reports/identity-tenant-foundation-report.md` |
 | 4 | Observability & Audit Foundation | Triển khai logging, tracing, metrics, dashboards, audit/security events, và guardrails | complete | with 3 | 2 | `.claude/PRPs/reports/observability-audit-foundation-report.md` |
 | 5 | Gateway Hardening | Thêm rate limiting, query complexity limits, persisted query strategy, cache strategy, và operational readiness checks | complete | - | 3, 4 | `.claude/PRPs/reports/gateway-hardening-report.md` |
-| 6 | Accounting Domain Readiness | Chốt domain boundaries cho ledger/invoice/expense/reporting và xác nhận service expansion path | pending | - | 5 | - |
+| 6 | Accounting Domain Readiness | Chốt domain boundaries cho ledger/invoice/expense/reporting và xác nhận service expansion path | complete | - | 5 | `.claude/PRPs/reports/accounting-domain-readiness-report.md` |
 
 ### Phase Details
 
