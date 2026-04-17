@@ -27,6 +27,9 @@ const requiredFiles = [
   "docs/architecture/adr-003-observability-baseline.md",
   "docs/architecture/adr-004-transport-and-eventing.md",
   "docs/architecture/adr-005-error-and-config-contracts.md",
+  "docs/architecture/adr-006-accounting-domain-boundaries.md",
+  "docs/architecture/accounting-domain-map.md",
+  "docs/contracts/accounting-service-expansion.md",
 ]
 
 test("architecture baseline files exist", () => {
